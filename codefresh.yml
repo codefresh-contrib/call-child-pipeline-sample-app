@@ -1,0 +1,56 @@
+version: '1.0'
+stages:
+  - prepare
+  - package
+  - deploy
+steps:
+  main_clone:
+    title: 'Cloning main repository...'
+    type: git-clone
+    repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
+    revision: '${{CF_REVISION}}'
+    git: github-1
+    stage: prepare
+  read_my_app_version:
+    title: Reading Application version
+    stage: prepare
+    image: node:latest
+    commands:
+      - export PACKAGE_VERSION=$(node -p "require('./package.json').version")
+      - cf_export PACKAGE_VERSION
+  build_my_docker_image:
+    title: 'Building My Docker Image'
+    stage: package
+    type: build
+    dockerfile: Dockerfile
+    image_name: my-app-image
+    tag: ${{PACKAGE_VERSION}}
+  call_qa_pipeline:
+    title: Deploy to QA
+    stage: deploy
+    type: codefresh-run
+    arguments:
+      PIPELINE_ID: child-pipelines/qa-pipeline
+      VARIABLE:
+        - CF_BRANCH=${{CF_BRANCH}}
+        - CF_REVISION=${{CF_REVISION}}
+        - APP_VERSION=${{PACKAGE_VERSION}}
+    when:
+      branch:
+        only:
+          - master      
+  call_prod_pipeline:
+    title: Deploy to QA
+    stage: deploy
+    type: codefresh-run
+    arguments:
+      PIPELINE_ID: child-pipelines/prod-pipeline
+      VARIABLE:
+        - CF_BRANCH=${{CF_BRANCH}}
+        - CF_REVISION=${{CF_REVISION}}
+        - APP_VERSION=${{PACKAGE_VERSION}}
+    when:
+      branch:
+        only:
+          - /^release.*/i     
+    

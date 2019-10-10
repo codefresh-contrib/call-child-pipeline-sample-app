@@ -1,0 +1,7 @@
+version: '1.0'
+steps:
+  my_prod_release:
+    title: Deploying to Production
+    image: alpine
+    commands:
+      - echo "I handle Production deployment for $CF_BRANCH of version $APP_VERSION"

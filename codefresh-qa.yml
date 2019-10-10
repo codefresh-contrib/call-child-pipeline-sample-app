@@ -1,0 +1,8 @@
+version: '1.0'
+steps:
+  my_qa_release:
+    title: Deploying to QA
+    image: alpine
+    commands:
+      - echo "I handle QA deployment for $CF_BRANCH of version $APP_VERSION"
+      - printenv
