@@ -38,7 +38,7 @@ steps:
     when:
       branch:
         only:
-          - master      
+          - develop      
   call_prod_pipeline:
     title: Deploy to QA
     stage: deploy
