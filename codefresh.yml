@@ -9,7 +9,7 @@ steps:
     type: git-clone
     repo: '${{CF_REPO_OWNER}}/${{CF_REPO_NAME}}'
     revision: '${{CF_REVISION}}'
-    git: github-1
+    git: github
     stage: prepare
   read_my_app_version:
     title: Reading Application version

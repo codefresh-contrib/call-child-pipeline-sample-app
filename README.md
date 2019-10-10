@@ -1,6 +1,6 @@
 # Example for using the codefresh-run plugin to call other pipelines
 
-This is an example application for the Codefresh CI/CD platform that contains a parent pipeline that call two other pipelines (QA or production deployment) according to the branch name.
+This is an example application for the Codefresh CI/CD platform that contains a parent pipeline that calls two other pipelines (QA or production deployment) according to the branch name.
 
 To call another pipeline the [codefresh-run plugin](https://codefresh.io/steps/step/codefresh-run) is used.
 
@@ -16,6 +16,7 @@ pipelines.
 
 ## To use this project in Codefresh
 
+1. Create a Codefresh project named `child-pipelines`
 1. Create a QA child pipeline using the contents of [codefresh-qa.yml](codefresh-qa.yml)
 1. Create a Prod child pipeline using the contents of [codefresh-prod.yml](codefresh-prod.yml)
 1. Create a parent pipeline using the contents of [codefresh.yml](codefresh.yml) and attach a Git trigger to it.
