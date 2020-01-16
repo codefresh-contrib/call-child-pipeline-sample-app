@@ -40,7 +40,7 @@ steps:
         only:
           - develop      
   call_prod_pipeline:
-    title: Deploy to QA
+    title: Deploy to Prod
     stage: deploy
     type: codefresh-run
     arguments:
